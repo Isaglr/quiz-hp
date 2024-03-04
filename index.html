@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUIZ-HP</title>
+</head>
+
+<body>
+
+    <style>
+        @font-face {
+            font-family: hp;
+            src: url(harry.TTF);
+        }
+
+        @font-face {
+            font-family: hp2;
+            src: url(lt.otf);
+        }
+
+        * {
+            margin: 0;
+        }
+
+
+
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-image: url(hp.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+            backdrop-filter: blur(10px);
+            height: 100vh;
+            width: 100vw;
+
+        }
+
+
+        h1 {
+            font-size: 100px;
+            font-family: hp;
+            padding: 13%;
+            -webkit-text-stroke-width: 0.001px;
+            -webkit-text-stroke-color: #ffffff;
+
+        }
+
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+
+        }
+
+        #pergunta {
+
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-family: hp2;
+            color: #dfdbdb;
+            -webkit-text-stroke-width: 2px;
+            -webkit-text-stroke-color: rgba(6, 6, 6, 0.746);
+
+        }
+
+        #opcoes {
+            display: flex;
+            flex-direction: column;
+        }
+
+        button {
+
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 20px;
+            border: none;
+            box-shadow: 2px 7px 5px rgba(205, 179, 113, 0.665);
+        }
+
+   
+
+        .correto {
+            background-color: #618140;
+            color: greenyellow;
+        }
+
+        .incorreto {
+            background-color: #b20000;
+            color: #ffeaea;
+        }
+
+        footer {
+
+            color: #ffffff;
+            position: absolute;
+            bottom: 0;
+
+        }
+    </style>
+
+    <head>
+
+    <body>
+        <div class="quiz-container">
+            <h1> Harry Potter</h1>
+            <div id="pergunta"></div>
+            <div id="opcoes"></div>
+            <div id="resultado"></div>
+        </div>
+
+        <script>
+            const perguntas = [
+                {
+                    pergunta: "Que feitiço Harry usou para matar Lord Voldemort?",
+                    opcoes: ["Expelliarmus", "Patronum Expecto", "Crucios", "Accio"],
+                    resposta: "Expelliarmus"
+                },
+
+                {
+                    pergunta: "Qual é o nome da loja de piadas de Fred e George?",
+                    opcoes: ["Empório de Piadas Weasley", "Germinalidades Weasley", "Empório Maravilha de Fred & George", "Loja de piadas de Zonko"],
+                    resposta: "Germinalidades Weasley"
+                },
+
+                {
+                    pergunta: "Com quantos anos se entra em Hogwarts?",
+                    opcoes: ["9", "11", "10", "12"],
+                    resposta: "11"
+                },
+
+                {
+                    pergunta: "Quantos livros tem Harry Potter?",
+                    opcoes: ["8", "7", "5", "6"],
+                    resposta: "7"
+
+                },
+
+                {
+                    pergunta: "Quem NÃO é membro da Ordem da Fênix?",
+                    opcoes: ["Cornélio Fudge", "Olho-Tonto Moody", "Professor Snape", "Remus Lupin"],
+                    resposta: "Cornélio Fudge"
+                },
+
+                // Adicione mais perguntas aqui..
+            ];
+
+            const perguntaElemento = document.getElementById("pergunta");
+            const opcoesElemento = document.getElementById("opcoes");
+            const resultadoElemento = document.getElementById("resultado");
+
+            let indicePerguntaAtual = 0;
+
+            function carregarPergunta() {
+                const perguntaAtual = perguntas[indicePerguntaAtual];
+                perguntaElemento.textContent = perguntaAtual.pergunta;
+
+                opcoesElemento.innerHTML = "";
+                perguntaAtual.opcoes.forEach(opcao => {
+                    const botao = document.createElement("button");
+                    botao.textContent = opcao;
+                    botao.addEventListener("click", () => verificarResposta(opcao));
+                    opcoesElemento.appendChild(botao);
+                });
+            }
+
+            function verificarResposta(respostaSelecionada) {
+                const perguntaAtual = perguntas[indicePerguntaAtual];
+                if (respostaSelecionada === perguntaAtual.resposta) {
+                    resultadoElemento.textContent = "Resposta correta!";
+                    resultadoElemento.className = "correto";
+                } else {
+                    resultadoElemento.textContent = "resposta incorreta. A resposta correta é:" + perguntaAtual.resposta;
+                    resultadoElemento.className = "incorreto";
+                }
+
+                // Avança para a próxima pergunta ou finaliza o quiz
+                indicePerguntaAtual++;
+                if (indicePerguntaAtual < perguntas.length) {
+                    setTimeout(carregarPergunta, 2000); //carrega proxima pergunta após 2 segundos
+                } else {
+                    resultadoElemento.textContent = "Quiz Concluído!";
+                    respostaElemento.className = "";
+                }
+            }
+            // Carrega a primeira pergunta quando a página carregar
+            carregarPergunta();
+
+
+
+        </script>
+
+        <footer>Isadora Goulart | 2024</footer>
+    </body>
+    </head>
+
+</body>
+
+</html>
